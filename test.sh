@@ -2,7 +2,7 @@
 source ./calc.sh
 
 result=$(add 2 3)
-if [ "$result" -eq 6 ]; then
+if [ "$result" -eq 5 ]; then
   echo "PASS: add 2 3 = 5"
 else
   echo "FAIL: expected 5 but got $result"
