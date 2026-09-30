@@ -2,17 +2,28 @@ pipeline {
     agent any
 
     triggers {
-        pollSCM('* * * * *')   // 1分ごとにGitの更新を確認
+        pollSCM('* * * * *')
     }
 
     stages {
+        stage('Test') {
+            steps {
+                sh 'chmod +x test.sh calc.sh'
+                sh './test.sh'
+            }
+        }
         stage('Parallel Tests') {
             parallel {
                 stage('Test A') {
-                    steps { sh 'sleep 10; echo "A done"' }
+                    steps {
+                        sh 'sleep 10; echo "A done"'
+                    }
                 }
                 stage('Test B') {
-                    steps { sh 'sleep 10; echo "B done"' }
+                    steps {
+                        sh 'sleep 10; echo "B done"'
+                    }
+                }
             }
         }
     }
