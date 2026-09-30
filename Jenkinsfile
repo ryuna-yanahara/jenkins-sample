@@ -1,16 +1,18 @@
 pipeline {
     agent any
 
+    triggers {
+        pollSCM('* * * * *')   // 1分ごとにGitの更新を確認
+    }
+
     stages {
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
-        stage('Show files') {
+        stage('Test') {
             steps {
-                sh 'ls -la'
-                sh 'cat README.md || true'
+                sh 'chmod +x test.sh calc.sh'
+                sh './test.sh'
             }
         }
     }
